@@ -128,26 +128,19 @@ exports.createUploadLink = ({
     const payload = serializeFetchParameter(clone, 'Payload')
 
     if (files.size) {
-      // Automatically set by fetch when the body is a FormData instance.
       delete options.headers['content-type']
-
-      // GraphQL multipart request spec:
-      // https://github.com/jaydenseric/graphql-multipart-request-spec
-
       const form = new FormData()
 
       form.append('operations', payload)
 
-      const map = {}
-      let i = 0
-      files.forEach(paths => {
-        map[++i] = paths
-      })
-      form.append('map', JSON.stringify(map))
+      const query = clone.query
+      const variables = clone.variables
+      form.append('variables', JSON.stringify(variables))
+      form.append('query', query)
 
-      i = 0
+      let i = 0
       files.forEach((paths, file) => {
-        form.append(++i, file, file.name)
+        form.append(`binary_${++i}`, file, file.name)
       })
 
       options.body = form
