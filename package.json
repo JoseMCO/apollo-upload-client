@@ -24,7 +24,8 @@
     "native"
   ],
   "files": [
-    "lib"
+    "lib",
+    "src"
   ],
   "main": "lib",
   "sideEffects": false,
