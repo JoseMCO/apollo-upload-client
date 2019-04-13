@@ -58,7 +58,6 @@
     "size-limit": "^0.21.0"
   },
   "scripts": {
-    "postinstall": "npm run prepare:js",
     "prepare": "npm run prepare:clean && npm run prepare:js && npm run prepare:jsdoc && npm run prepare:prettier",
     "prepare:clean": "rm -rf lib",
     "prepare:js": "babel src -d lib",
